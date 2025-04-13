@@ -14,10 +14,15 @@ namespace orakle_api.Extensions
     {
         public static IServiceCollection AddDataBaseConection(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DataContext>(config =>
+            var dbPath = Path.Combine(AppContext.BaseDirectory, "Data", "orackle.db");
+
+            services.AddDbContext<DataContext>(options =>
             {
-                config.UseSqlite("Data Source=Data\\orackle.db");
+                options.UseSqlite($"Data Source={dbPath}");
             });
+
+            Console.WriteLine(AppContext.BaseDirectory);
+            Console.WriteLine(File.Exists(Path.Combine(AppContext.BaseDirectory, "Data", "orackle.db")));
 
             services.AddIdentity<Owner, IdentityRole<Guid>>()
                    .AddEntityFrameworkStores<DataContext>()
