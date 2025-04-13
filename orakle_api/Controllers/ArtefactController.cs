@@ -19,12 +19,12 @@ namespace orakle_api.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var res = await _service.GetAll();
-            return Ok(res);
+            //var res = await _service.GetAll();
+            return Ok("Olá");
         }
 
         [HttpGet("GetByOwnerId/{OwnerId}")]
